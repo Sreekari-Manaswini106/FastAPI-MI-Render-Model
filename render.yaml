@@ -1,6 +1,6 @@
 services:
 -type:web
-name : fastapi-ml-model
+name : FastAPI-MI-Render-Model
 runtime:python
 buildCommand: "pip install -r Requirements.txt"
 startCommand: "uvicorn api.main:
