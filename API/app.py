@@ -18,7 +18,7 @@ if st.button("Predict Result"):
             "https://fastapi-ml-model-59lf.onrender.com/predict",
             json={"features": features}
         )
-        
+
         if response.status_code == 200:
             result = response.json().get("prediction")
             if result == 1:
@@ -29,6 +29,7 @@ if st.button("Predict Result"):
                 st.warning("Received an unexpected prediction value")
         else:
             st.warning(f"Unexpected response from server. Status code: {response.status_code}")
-    
+
     except Exception as e:
         st.error(f"Error: {e}")
+
