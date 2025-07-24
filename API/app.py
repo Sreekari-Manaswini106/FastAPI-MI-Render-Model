@@ -15,7 +15,7 @@ features = [mark1, mark2, mark3]
 if st.button("Predict Result"):
     try:
         response = requests.post(
-            "https://fastapi-ml-model-59lf.onrender.com/predict",
+            "https://fastapi-mi-render-model.onrender.com/predict",  # updated URL
             json={"features": features}
         )
 
@@ -32,4 +32,3 @@ if st.button("Predict Result"):
 
     except Exception as e:
         st.error(f"Error: {e}")
-
