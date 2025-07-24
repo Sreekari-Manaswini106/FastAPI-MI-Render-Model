@@ -14,21 +14,26 @@ features = [mark1, mark2, mark3]
 
 if st.button("Predict Result"):
     try:
+        st.info("Sending request to backend...")  # Status message
         response = requests.post(
-            "https://fastapi-mi-render-model.onrender.com/predict",  # updated URL
-            json={"features": features}
+            "https://fastapi-mi-render-model.onrender.com/predict",
+            json={"features": features},
+            timeout=10  # prevent Streamlit from hanging
         )
+
+        st.write(f"Status Code: {response.status_code}")  # helpful for debugging
 
         if response.status_code == 200:
             result = response.json().get("prediction")
             if result == 1:
-                st.success("The student is predicted to pass")
+                st.success("✅ The student is predicted to pass")
             elif result == 0:
-                st.error("The student is predicted to fail")
+                st.error("❌ The student is predicted to fail")
             else:
-                st.warning("Received an unexpected prediction value")
+                st.warning(f"⚠️ Unexpected prediction value: {result}")
         else:
-            st.warning(f"Unexpected response from server. Status code: {response.status_code}")
+            st.error(f"🔥 Server error: {response.status_code}")
+            st.text(response.text)
 
-    except Exception as e:
-        st.error(f"Error: {e}")
+    except requests.exceptions.RequestException as e:
+        st.error(f"❗ Request failed: {e}")
